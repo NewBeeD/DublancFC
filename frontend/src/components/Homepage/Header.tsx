@@ -5,11 +5,12 @@ import React, { useState, MouseEvent } from 'react';
 import TeamLogo from "./TeamLogo";
 import { Teko } from 'next/font/google'
 
-import { AppBar, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, MenuItem, Stack, Box  } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Stack, Box, Popover, List, ListItem, ListItemText  } from "@mui/material";
 
 import MenuIcon from '@mui/icons-material/Menu';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 
 
@@ -38,6 +39,8 @@ const Header = () => {
 
   // Start of variables and functions for naigations for cellphones etc
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElSubNav, setAnchorElSubNav] = useState<null | HTMLElement>(null);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
  
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -45,38 +48,12 @@ const Header = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+
+    // Sub nav addition
+    setAnchorElSubNav(null);
+    setOpenSubMenu(null);
   };
-  // End of variables and functions for naigations for cellphones etc
-
-
-  // Start of variables and functions for naigations for larger devices
-  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const [submenuItems, setSubmenuItems] = useState<string[]>([]);
-  // const [isMenuHovered, setIsMenuHovered] = useState(false);
-
-
-  // const handleMenuClick = (event: React.MouseEvent<HTMLElement>, menuItems: string[]) => {
-  //   setAnchorEl(event.currentTarget);
-  //   setSubmenuItems(menuItems);
-
-  // };
-
-  // const handleClose = () => {
-  //   if (!isMenuHovered) {
-  //     setAnchorEl(null);
-  //     setSubmenuItems([]);
-  //   }
-
-  // };
-
-  // const handleMenuMouseEnter = () => {
-  //   setIsMenuHovered(true);
-  // };
-
-  // const handleMenuMouseLeave = () => {
-  //   setIsMenuHovered(false);
-  //   handleClose();
-  // };
+ 
 
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -92,6 +69,12 @@ const Header = () => {
     setOpenMenu(null);
   };
 
+  // Sub navigation for smaller devices
+
+  const handleOpenSubMenu = (event: React.MouseEvent<HTMLElement>, label: string) => {
+    setAnchorElSubNav(event.currentTarget);
+    setOpenSubMenu(label);
+  };
 
   
   
@@ -194,11 +177,47 @@ const Header = () => {
                       display: { xs: 'block', md: 'none' },
                     }}
                   >
-                    {pages.map((page, idx) => (
+                    {/* {pages.map((page, idx) => (
                       <MenuItem key={idx} onClick={handleCloseNavMenu}>
                         <Typography textAlign="center">{page.label}</Typography>
                       </MenuItem>
+                    ))} */}
+
+
+                    {pages.map((page, idx) => (
+                      <div key={idx}>
+                        <MenuItem onClick={(event) => handleOpenSubMenu(event, page.label)}>
+                          <Typography textAlign="center">{page.label}</Typography>
+                          {page.menu.length > 0 && <KeyboardArrowRightIcon />}
+                        </MenuItem>
+                        {page.menu.length > 0 && (
+                          <Menu
+                            id="sub-menu"
+                            anchorEl={anchorElSubNav}
+                            open={openSubMenu === page.label}
+                            onClose={handleCloseNavMenu}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left',
+                            }}
+                          >
+                            {page.menu.map((menuItem, idx) => (
+                              <MenuItem key={idx} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">{menuItem}</Typography>
+                              </MenuItem>
+                            ))}
+                          </Menu>
+                        )}
+                      </div>
                     ))}
+                    
+
+
+
                   </Menu>
               </Box>
 
