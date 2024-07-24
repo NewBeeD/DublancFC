@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "players",
+  "info": {
+    "singularName": "player",
+    "pluralName": "players",
+    "displayName": "player"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstname": {
+      "type": "string",
+      "required": true
+    },
+    "lastname": {
+      "type": "string",
+      "required": true
+    },
+    "age": {
+      "type": "date"
+    },
+    "birthdate": {
+      "type": "date"
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "CB",
+        "RB",
+        "LB",
+        "CDM",
+        "CM",
+        "CAM",
+        "RW",
+        "LW",
+        "ST",
+        "CF"
+      ],
+      "required": true
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ],
+      "required": true
+    },
+    "league": {
+      "type": "enumeration",
+      "enum": [
+        "PREMIER_LEAGUE_MEN",
+        "DIVISION_ONE_MEN",
+        "UNDER_21_MEN",
+        "WOMEN",
+        "ACADEMY"
+      ],
+      "required": true
+    },
+    "foot": {
+      "type": "enumeration",
+      "enum": [
+        "RIGHT",
+        "LEFT"
+      ],
+      "required": true,
+      "default": "RIGHT"
+    },
+    "kit": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "decimal"
+    },
+    "profile_picture": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "stats": {
+      "type": "json"
+    },
+    "player_bio": {
+      "type": "text"
+    }
+  }
+}

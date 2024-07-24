@@ -788,6 +788,115 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiArticleArticle extends Schema.CollectionType {
+  collectionName: 'articles';
+  info: {
+    singularName: 'article';
+    pluralName: 'articles';
+    displayName: 'article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    content: Attribute.Blocks & Attribute.Required;
+    author: Attribute.String & Attribute.Required;
+    category: Attribute.Enumeration<
+      [
+        'MEN',
+        'WOMEN',
+        'ACADEMY',
+        'FEATURE',
+        'INTERNATIONAL',
+        'UPDATE',
+        'DEVELOPMENT',
+        'ANNOUNCEMENT'
+      ]
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'MEN'>;
+    headline: Attribute.Boolean & Attribute.Required;
+    video: Attribute.String;
+    article_image: Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlayerPlayer extends Schema.CollectionType {
+  collectionName: 'players';
+  info: {
+    singularName: 'player';
+    pluralName: 'players';
+    displayName: 'player';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    firstname: Attribute.String & Attribute.Required;
+    lastname: Attribute.String & Attribute.Required;
+    age: Attribute.Date;
+    birthdate: Attribute.Date;
+    position: Attribute.Enumeration<
+      ['CB', 'RB', 'LB', 'CDM', 'CM', 'CAM', 'RW', 'LW', 'ST', 'CF']
+    > &
+      Attribute.Required;
+    gender: Attribute.Enumeration<['MALE', 'FEMALE']> & Attribute.Required;
+    league: Attribute.Enumeration<
+      [
+        'PREMIER_LEAGUE_MEN',
+        'DIVISION_ONE_MEN',
+        'UNDER_21_MEN',
+        'WOMEN',
+        'ACADEMY'
+      ]
+    > &
+      Attribute.Required;
+    foot: Attribute.Enumeration<['RIGHT', 'LEFT']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'RIGHT'>;
+    kit: Attribute.Integer;
+    height: Attribute.Decimal;
+    profile_picture: Attribute.Media<'images'>;
+    stats: Attribute.JSON;
+    player_bio: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::player.player',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::player.player',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +915,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::article.article': ApiArticleArticle;
+      'api::player.player': ApiPlayerPlayer;
     }
   }
 }
