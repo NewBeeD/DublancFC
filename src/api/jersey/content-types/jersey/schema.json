@@ -4,7 +4,8 @@
   "info": {
     "singularName": "jersey",
     "pluralName": "jerseys",
-    "displayName": "jersey"
+    "displayName": "jersey",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -35,11 +36,21 @@
       "type": "integer"
     },
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Male Jersey",
+        "Female Jersey",
+        "Children Jersey",
+        "Non Jersey"
+      ],
       "required": true
     }
   }

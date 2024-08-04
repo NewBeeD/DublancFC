@@ -847,6 +847,7 @@ export interface ApiJerseyJersey extends Schema.CollectionType {
     singularName: 'jersey';
     pluralName: 'jerseys';
     displayName: 'jersey';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -860,6 +861,10 @@ export interface ApiJerseyJersey extends Schema.CollectionType {
     care: Attribute.Text;
     stock: Attribute.Integer;
     image: Attribute.Media<'images', true> & Attribute.Required;
+    category: Attribute.Enumeration<
+      ['Male Jersey', 'Female Jersey', 'Children Jersey', 'Non Jersey']
+    > &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
