@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jerseys",
+  "info": {
+    "singularName": "jersey",
+    "pluralName": "jerseys",
+    "displayName": "jersey"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "color": {
+      "type": "string"
+    },
+    "product_details": {
+      "type": "text"
+    },
+    "care": {
+      "type": "text"
+    },
+    "stock": {
+      "type": "integer"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}

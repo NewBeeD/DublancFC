@@ -841,6 +841,43 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiJerseyJersey extends Schema.CollectionType {
+  collectionName: 'jerseys';
+  info: {
+    singularName: 'jersey';
+    pluralName: 'jerseys';
+    displayName: 'jersey';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    price: Attribute.Decimal & Attribute.Required;
+    description: Attribute.Text;
+    color: Attribute.String;
+    product_details: Attribute.Text;
+    care: Attribute.Text;
+    stock: Attribute.Integer;
+    image: Attribute.Media<'images', true> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::jersey.jersey',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::jersey.jersey',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPlayerPlayer extends Schema.CollectionType {
   collectionName: 'players';
   info: {
@@ -916,6 +953,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::article.article': ApiArticleArticle;
+      'api::jersey.jersey': ApiJerseyJersey;
       'api::player.player': ApiPlayerPlayer;
     }
   }
