@@ -841,6 +841,52 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiFixtureFixture extends Schema.CollectionType {
+  collectionName: 'fixtures';
+  info: {
+    singularName: 'fixture';
+    pluralName: 'fixtures';
+    displayName: 'fixture';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    home_team: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'CCCUL Dublanc FC'>;
+    away_team: Attribute.String & Attribute.Required;
+    match_date: Attribute.DateTime & Attribute.Required;
+    home_team_score: Attribute.Integer;
+    away_team_score: Attribute.Integer;
+    Venue: Attribute.Enumeration<
+      [
+        'Stock Farm Technical Center',
+        'Almond Park',
+        "Benjamin's Park",
+        'Laplaine Playing Field',
+        'Stadium'
+      ]
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fixture.fixture',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fixture.fixture',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGalleryGallery extends Schema.CollectionType {
   collectionName: 'galleries';
   info: {
@@ -990,6 +1036,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::article.article': ApiArticleArticle;
+      'api::fixture.fixture': ApiFixtureFixture;
       'api::gallery.gallery': ApiGalleryGallery;
       'api::jersey.jersey': ApiJerseyJersey;
       'api::player.player': ApiPlayerPlayer;
